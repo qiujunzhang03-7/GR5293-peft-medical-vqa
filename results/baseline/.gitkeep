@@ -1,0 +1,6 @@
+# This file keeps the directory in git when it has no other contents.
+# After running the baseline notebook, this dir will be populated with:
+#   - metrics.json
+#   - predictions.jsonl
+#   - per_example_scores.json
+#   - baseline_summary.png
