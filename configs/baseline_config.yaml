@@ -1,0 +1,46 @@
+# =============================================================================
+# Baseline (zero-shot) evaluation configuration
+# =============================================================================
+# All baseline experiments use these exact settings. Members 2 and 3 should
+# inherit and override only what changes for their PEFT experiments — this
+# guarantees a fair comparison.
+
+model:
+  id: "Qwen/Qwen2-VL-2B-Instruct"
+  dtype: "float16"             # fp16 for inference; PEFT runs may use bf16
+  device_map: "auto"
+
+dataset:
+  name: "flaviagiammarino/vqa-rad"
+  split: "test"                # 451 examples
+  max_examples: null           # null = full split
+
+generation:
+  max_new_tokens: 64           # 99% of VQA-RAD answers fit in <10 tokens
+  do_sample: false             # greedy decoding for reproducibility
+  temperature: 1.0             # ignored when do_sample=false
+
+prompt:
+  system: |
+    You are a helpful medical assistant analyzing a radiology image.
+    Answer the question concisely and accurately.
+    For yes/no questions, reply with just 'yes' or 'no'.
+    For other questions, give a short factual answer (a few words).
+
+evaluation:
+  metrics:
+    - exact_match              # closed-ended
+    - bleu1                    # open-ended
+    - rougeL                   # open-ended
+    - token_f1                 # open-ended
+  bootstrap:
+    n_resamples: 10000
+    confidence: 0.95
+
+reproducibility:
+  seed: 42
+
+output:
+  dir: "results/baseline"
+  save_predictions: true       # write per-example predictions.jsonl
+  save_per_example_scores: true # for paired tests by Members 2/3
