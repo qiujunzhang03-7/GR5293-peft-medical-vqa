@@ -1,0 +1,54 @@
+# =============================================================================
+# Dependencies for PEFT-Medical-VQA
+# Tested on Google Colab T4 GPU (Apr 2026), Python 3.10/3.11
+# =============================================================================
+#
+# IMPORTANT for Colab users:
+#   Colab pre-installs torch with the right CUDA version. DO NOT reinstall it
+#   unless you know what you're doing. The notebook does NOT touch torch.
+#   Just run: !pip install -r requirements.txt
+# =============================================================================
+
+# --- HuggingFace stack ---
+# transformers >= 4.45 is required for Qwen2-VL support
+transformers>=4.45.0,<4.50.0
+accelerate>=0.34.0
+datasets>=3.0.0
+tokenizers>=0.20.0
+
+# --- PEFT (used by LoRA quick-run + downstream QLoRA/DoRA experiments) ---
+peft>=0.13.0
+
+# --- Quantization (used by QLoRA — Member 2's branch) ---
+bitsandbytes>=0.44.0
+
+# --- Qwen2-VL utilities (image preprocessing helpers) ---
+qwen-vl-utils>=0.0.8
+
+# --- Evaluation metrics ---
+nltk>=3.9
+rouge-score>=0.1.2
+sacrebleu>=2.4.0
+
+# --- Statistical tests (NumPy is a hard dependency of bootstrap CI) ---
+numpy>=1.24
+scipy>=1.10
+
+# --- Data handling ---
+pandas>=2.0
+Pillow>=10.0
+pyarrow>=15.0
+
+# --- Visualization ---
+matplotlib>=3.7
+seaborn>=0.13
+
+# --- Experiment tracking (optional, used in later weeks) ---
+wandb>=0.18.0
+
+# --- Utilities ---
+tqdm>=4.66
+PyYAML>=6.0
+
+# --- Testing (development only — not strictly needed for inference) ---
+pytest>=8.0

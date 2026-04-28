@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ML artifacts (too large for git)
+*.bin
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+
+# Cached datasets/models
+data/cache/
+.cache/
+*.arrow
+hf_cache/
+
+# Results: keep aggregated metrics, ignore large prediction dumps
+results/**/predictions/
+results/**/checkpoints/
+!results/**/.gitkeep
+!results/**/metrics.json
+!results/**/per_example_scores.json
+
+# Wandb
+wandb/
+
+# Colab-specific
+sample_data/
+
+# Local secrets
+.env
+*.key
