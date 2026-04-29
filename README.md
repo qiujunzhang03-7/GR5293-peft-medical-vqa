@@ -1,6 +1,6 @@
 # PEFT for Medical Multimodal VQA
 
-[![tests](https://github.com/USER/peft-medical-vqa/actions/workflows/tests.yml/badge.svg)](https://github.com/USER/peft-medical-vqa/actions/workflows/tests.yml)
+[![tests](https://github.com/qiujunzhang03-7/GR5293-peft-medical-vqa/actions/workflows/tests.yml/badge.svg)](https://github.com/qiujunzhang03-7/GR5293-peft-medical-vqa/actions/workflows/tests.yml)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/code-MIT-green)](LICENSE)
 
