@@ -101,8 +101,8 @@ You will **read** (not modify) Member 1's results to do paired statistical tests
 # Runtime → Change runtime type → T4 GPU → Save
 
 # Cell 2: clone
-!git clone https://github.com/<USER>/peft-medical-vqa.git
-%cd peft-medical-vqa
+!git clone https://github.com/qiujunzhang03-7/GR5293-peft-medical-vqa.git
+%cd GR5293-peft-medical-vqa
 
 # Cell 3: install dependencies (~2-3 min)
 # Colab pre-installs torch with the right CUDA version; we don't reinstall it.
@@ -110,7 +110,7 @@ You will **read** (not modify) Member 1's results to do paired statistical tests
 
 # Cell 4: make project importable
 import os, sys
-PROJECT_ROOT = '/content/peft-medical-vqa'
+PROJECT_ROOT = '/content/GR5293-peft-medical-vqa'
 os.chdir(PROJECT_ROOT)
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
@@ -124,8 +124,8 @@ print(f"CWD: {os.getcwd()}")
 ### Option B: Local with GPU (≥10 GB VRAM)
 
 ```bash
-git clone https://github.com/<USER>/peft-medical-vqa.git
-cd peft-medical-vqa
+git clone https://github.com/qiujunzhang03-7/GR5293-peft-medical-vqa.git
+cd GR5293-peft-medical-vqa
 python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 pytest tests/ -v
