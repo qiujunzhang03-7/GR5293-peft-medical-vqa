@@ -5,7 +5,6 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main ]
-  # Allow manual triggering from the GitHub Actions tab
   workflow_dispatch:
 
 jobs:
@@ -14,7 +13,6 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10", "3.11"]
-      # Don't cancel sibling jobs if one fails
       fail-fast: false
 
     steps:
@@ -27,13 +25,18 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
 
-      - name: Install lightweight test dependencies
-        # We test only the pure-Python modules in CI (metrics, statistical
-        # tests, data helpers). Loading the full ML stack and downloading
-        # Qwen2-VL-2B (~4 GB) is unnecessary for unit tests.
+      - name: Install dependencies
+        # We install CPU-only torch + the minimum stack needed to import
+        # src/ modules and run the 85 unit tests. We do NOT download
+        # the Qwen2-VL-2B model (~4 GB), since unit tests don't load it.
         run: |
           python -m pip install --upgrade pip
-          pip install pytest numpy rouge-score
+          # CPU-only torch (saves ~2 GB vs CUDA wheels)
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          # Lightweight ML/data deps
+          pip install pytest numpy scipy pandas pyyaml rouge-score sacrebleu nltk Pillow
+          # Transformers + PEFT (small without weights)
+          pip install transformers accelerate peft datasets
 
       - name: Run tests
         run: pytest tests/ -v --tb=short
