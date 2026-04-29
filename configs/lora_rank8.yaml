@@ -1,31 +1,31 @@
 # =============================================================================
-# LoRA full-data configuration (for Members 2/3 to use as a starting point)
+# LoRA full-data ablation — rank = 8
 # =============================================================================
 # Trains on the full VQA-RAD train split (1,797 examples) for 3 epochs.
 # Expected runtime: ~3 hours on Colab T4 / ~1.5 hours on a local 24GB GPU.
 
 model_id: "Qwen/Qwen2-VL-2B-Instruct"
 dtype: "float16"
-load_in_4bit: false
+load_in_4bit: false              # Member 2: flip to true for QLoRA
 
 train_split: "train"
-train_max_examples: null         # full split
+train_max_examples: null         # full split (1,797 examples)
 eval_split: "test"
 eval_max_examples: null
 
-# LoRA hyperparameters (from Member 2's hp sweep — set these once defaults are chosen)
-lora_r: 16
-lora_alpha: 32
+# LoRA hyperparameters (rank = 8, alpha = 2*r convention)
+lora_r: 8
+lora_alpha: 16
 lora_dropout: 0.05
 target_modules:
   - q_proj
   - k_proj
   - v_proj
   - o_proj
-  - gate_proj                    # Including FFN modules generally helps for VL tasks
+  - gate_proj                    # FFN modules included for VL tasks
   - up_proj
   - down_proj
-use_dora: false
+use_dora: false                  # Member 2: flip to true for DoRA
 
 num_epochs: 3
 per_device_batch_size: 1
@@ -37,7 +37,7 @@ max_grad_norm: 1.0
 gradient_checkpointing: true
 
 logging_steps: 20
-output_dir: "checkpoints/lora_full"
+output_dir: "checkpoints/lora_rank8"
 seed: 42
 
 run_eval_after_training: true

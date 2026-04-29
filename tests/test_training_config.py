@@ -42,9 +42,10 @@ class TestConfigYAML:
         assert cfg.load_in_4bit is False
         assert cfg.train_max_examples == 200
 
-    def test_load_full_yaml(self):
-        cfg = LoRATrainingConfig.from_yaml("configs/lora_full.yaml")
-        assert cfg.lora_r == 16
+    def test_load_rank8_yaml(self):
+        cfg = LoRATrainingConfig.from_yaml("configs/lora_rank8.yaml")
+        assert cfg.lora_r == 8
+        assert cfg.lora_alpha == 16  # alpha = 2*r convention
         assert cfg.train_max_examples is None  # full split
         assert "gate_proj" in cfg.target_modules
 

@@ -1,0 +1,57 @@
+{
+  "comparison": "Baseline vs LoRA rank=4",
+  "tests": {
+    "Closed EM": {
+      "n": 251,
+      "paired_bootstrap": {
+        "point": 0.19123505976095612,
+        "lower": 0.12350597609561753,
+        "upper": 0.2589641434262948,
+        "se": 0.03545235395133368,
+        "p_two_sided": 0.0
+      },
+      "mcnemar": {
+        "b": 20,
+        "c": 68,
+        "n_disagree": 88,
+        "p_value": 2.770265657008102e-07
+      }
+    },
+    "Open ROUGE-L": {
+      "n": 200,
+      "paired_bootstrap": {
+        "point": 0.15431421356421365,
+        "lower": 0.1037455086580087,
+        "upper": 0.20723943001443004,
+        "se": 0.026239356140051347,
+        "p_two_sided": 0.0
+      }
+    },
+    "Open BLEU-1": {
+      "n": 200,
+      "paired_bootstrap": {
+        "point": 0.1533426658607307,
+        "lower": 0.10321213610127275,
+        "upper": 0.20566479262600854,
+        "se": 0.026038964544698263,
+        "p_two_sided": 0.0
+      }
+    },
+    "Overall EM": {
+      "n": 451,
+      "paired_bootstrap": {
+        "point": 0.16407982261640797,
+        "lower": 0.11973392461197335,
+        "upper": 0.2106430155210643,
+        "se": 0.023104971037456616,
+        "p_two_sided": 0.0
+      },
+      "mcnemar": {
+        "b": 23,
+        "c": 97,
+        "n_disagree": 120,
+        "p_value": 5.263609792232913e-12
+      }
+    }
+  }
+}

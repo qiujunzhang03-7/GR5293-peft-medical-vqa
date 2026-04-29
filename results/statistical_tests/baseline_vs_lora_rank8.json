@@ -1,0 +1,57 @@
+{
+  "comparison": "Baseline (zero-shot) vs LoRA full",
+  "tests": {
+    "Closed EM": {
+      "n": 251,
+      "paired_bootstrap": {
+        "point": 0.17131474103585653,
+        "lower": 0.09561752988047811,
+        "upper": 0.24302788844621515,
+        "se": 0.03766036997310511,
+        "p_two_sided": 0.0
+      },
+      "mcnemar": {
+        "b": 26,
+        "c": 69,
+        "n_disagree": 95,
+        "p_value": 1.1828088484914373e-05
+      }
+    },
+    "Open ROUGE-L": {
+      "n": 200,
+      "paired_bootstrap": {
+        "point": 0.11947727272727277,
+        "lower": 0.0669142316017316,
+        "upper": 0.17377348484848484,
+        "se": 0.0272743212186825,
+        "p_two_sided": 0.0
+      }
+    },
+    "Open BLEU-1": {
+      "n": 200,
+      "paired_bootstrap": {
+        "point": 0.12462522566667955,
+        "lower": 0.07295226793868062,
+        "upper": 0.17792582192147355,
+        "se": 0.026851367774771675,
+        "p_two_sided": 0.0
+      }
+    },
+    "Overall EM": {
+      "n": 451,
+      "paired_bootstrap": {
+        "point": 0.14190687361419074,
+        "lower": 0.09534368070953436,
+        "upper": 0.18847006651884707,
+        "se": 0.02408123770166103,
+        "p_two_sided": 0.0
+      },
+      "mcnemar": {
+        "b": 31,
+        "c": 95,
+        "n_disagree": 126,
+        "p_value": 9.610247655461225e-09
+      }
+    }
+  }
+}

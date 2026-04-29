@@ -1,0 +1,63 @@
+{
+  "comparison": "Baseline (zero-shot) vs LoRA quick run",
+  "n_examples": 451,
+  "processor_config": "min_pixels=256*28*28, max_pixels=768*28*28 (apple-to-apple)",
+  "tests": {
+    "Closed EM": {
+      "n": 251,
+      "metric": "exact_match",
+      "paired_bootstrap": {
+        "point": -0.031872509960159445,
+        "lower": -0.07171314741035861,
+        "upper": 0.007968127490039834,
+        "se": 0.0209866208161848,
+        "p_two_sided": 0.1536
+      },
+      "mcnemar": {
+        "b": 18,
+        "c": 10,
+        "n_disagree": 28,
+        "p_value": 0.18493334203958378
+      }
+    },
+    "Open ROUGE-L": {
+      "n": 200,
+      "metric": "rougeL_token_overlap",
+      "paired_bootstrap": {
+        "point": 0.07623448773448777,
+        "lower": 0.03736439393939393,
+        "upper": 0.11736574675324667,
+        "se": 0.020484040102921916,
+        "p_two_sided": 0.0
+      }
+    },
+    "Open BLEU-1": {
+      "n": 200,
+      "metric": "bleu1",
+      "paired_bootstrap": {
+        "point": 0.06571732425280666,
+        "lower": 0.0289266551024863,
+        "upper": 0.10484329560758973,
+        "se": 0.019607533342479787,
+        "p_two_sided": 0.0006
+      }
+    },
+    "Overall EM": {
+      "n": 451,
+      "metric": "exact_match",
+      "paired_bootstrap": {
+        "point": 0.0022172949002217113,
+        "lower": -0.026607538802660757,
+        "upper": 0.031042128603104235,
+        "se": 0.01474520462772345,
+        "p_two_sided": 0.924
+      },
+      "mcnemar": {
+        "b": 21,
+        "c": 22,
+        "n_disagree": 43,
+        "p_value": 1.0
+      }
+    }
+  }
+}

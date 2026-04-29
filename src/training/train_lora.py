@@ -43,6 +43,7 @@ from src.evaluation.metrics import (
 )
 from src.evaluation.statistical_tests import bootstrap_ci
 from src.training.data_collator import QwenVLSFTCollator
+from src.training._enable_input_grads import enable_input_grads
 from src.utils.profiling import (
     cleanup_gpu,
     count_parameters,
@@ -64,7 +65,7 @@ class LoRATrainingConfig:
 
     The defaults here are tuned for **a Colab T4 (16 GB) quick run** —
     a 200-example subset, 1 epoch, rank=8. Members 2/3's full runs will
-    override these (see ``configs/lora_full.yaml``).
+    override these (see ``configs/lora_rank8.yaml``).
     """
 
     # --- Model ---
@@ -193,7 +194,15 @@ def _load_base_model(cfg: LoRATrainingConfig):
         model.gradient_checkpointing_enable()
         model.config.use_cache = False  # required when gradient checkpointing
 
-    processor = AutoProcessor.from_pretrained(cfg.model_id, cache_dir=cfg.cache_dir)
+    # Fix image resolution to avoid variable-resolution token mismatch.
+    # min_pixels = 256*28*28; max_pixels = 768*28*28 — Qwen2-VL recommended
+    # range that keeps spatial-merge math integral and consistent across batches.
+    processor = AutoProcessor.from_pretrained(
+        cfg.model_id,
+        cache_dir=cfg.cache_dir,
+        min_pixels=256 * 28 * 28,
+        max_pixels=768 * 28 * 28,
+    )
     if processor.tokenizer.pad_token_id is None:
         processor.tokenizer.pad_token_id = processor.tokenizer.eos_token_id
     return model, processor
@@ -227,6 +236,7 @@ def train_lora(cfg: LoRATrainingConfig) -> dict:
 
     # -- 3. Apply LoRA -----------------------------------------------------
     model = apply_lora_to_qwen(model, cfg)
+    enable_input_grads(model)  # required for gradient checkpointing + LoRA
     base_param_summary = print_parameter_summary(model, "After LoRA")
 
     # -- 4. DataLoader -----------------------------------------------------

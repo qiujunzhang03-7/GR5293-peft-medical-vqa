@@ -3,7 +3,7 @@
 # =============================================================================
 # Designed to run end-to-end on Colab T4 in <30 minutes.
 # Uses a 200-example training subset to validate the pipeline without burning
-# Colab quota. Members 2/3 should switch to lora_full.yaml for headline runs.
+# Colab quota. Members 2/3 should switch to lora_rank8.yaml for headline runs.
 
 # --- Model ---
 model_id: "Qwen/Qwen2-VL-2B-Instruct"

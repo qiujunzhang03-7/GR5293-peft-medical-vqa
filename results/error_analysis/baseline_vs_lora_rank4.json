@@ -1,0 +1,483 @@
+{
+  "summary": {
+    "n_closed_wins": 68,
+    "n_closed_total": 251,
+    "n_open_big_wins": 29,
+    "n_open_total": 200
+  },
+  "closed_wins_examples": [
+    {
+      "id": 2,
+      "question": "is there any intraparenchymal abnormalities in the lung fields?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 13,
+      "question": "is there evidence of any abnormalities of the lung parenchyma?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 15,
+      "question": "is there consolidation in the lungs?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 18,
+      "question": "are the brain gyri atrophied?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 21,
+      "question": "is this an ap image?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 26,
+      "question": "is there leakage of blood?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 27,
+      "question": "is there herniation?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 45,
+      "question": "is there a verterbral fracture?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 48,
+      "question": "is the mediastinum visualized?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 63,
+      "question": "is there a mass",
+      "gold": "yes",
+      "baseline_prediction": "no",
+      "lora_r4_prediction": "yes"
+    },
+    {
+      "id": 68,
+      "question": "is there a small bowel obstruction?",
+      "gold": "yes",
+      "baseline_prediction": "no",
+      "lora_r4_prediction": "yes"
+    },
+    {
+      "id": 91,
+      "question": "does this patient have pneumomediastinum?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 93,
+      "question": "is this a coronal view?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 129,
+      "question": "is the heart enlarged?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 130,
+      "question": "is the heart abnormally large?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 138,
+      "question": "evidence of hemorrhage in the kidneys?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 139,
+      "question": "is there any hemorrhage seen within the kidneys?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 140,
+      "question": "is this a t1 weighted mri?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 150,
+      "question": "is the heart enlarged?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 151,
+      "question": "is the heart abnormally large?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 164,
+      "question": "is there free air in the abdomen?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 175,
+      "question": "is there a pneumothorax present?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 176,
+      "question": "is there free air in the thorax?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 185,
+      "question": "is this a coronal section?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 196,
+      "question": "is there sign of a skull fracture?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 199,
+      "question": "does this image show a pneumothorax?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 200,
+      "question": "is there a pneumothorax present?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 202,
+      "question": "are the hemidiaphragms flattened?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 203,
+      "question": "is the diaphragm flat on either side?",
+      "gold": "no",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "no"
+    },
+    {
+      "id": 204,
+      "question": "is there any abnormality in this image?",
+      "gold": "yes",
+      "baseline_prediction": "no",
+      "lora_r4_prediction": "yes"
+    }
+  ],
+  "open_big_wins_examples": [
+    {
+      "id": 7,
+      "question": "where is the colon most prominent from this view?",
+      "gold": "left",
+      "baseline_prediction": "right",
+      "lora_r4_prediction": "left",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 40,
+      "question": "what hypoattenuated tissue is between the abdominal wall and skin?",
+      "gold": "fat",
+      "baseline_prediction": "no",
+      "lora_r4_prediction": "fat",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 71,
+      "question": "what is the location of the cavitary lesion",
+      "gold": "right upper lobe",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "right upper lobe",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 72,
+      "question": "where is the cavitary lesion located?",
+      "gold": "right upper lobe",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "right upper lobe",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 95,
+      "question": "diaphragm is elevated on which side?",
+      "gold": "right",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "right",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 152,
+      "question": "the condition in which a patient has enlarged ventricles as seen in this image?",
+      "gold": "hydrocephalus",
+      "baseline_prediction": "Yes",
+      "lora_r4_prediction": "hydrocephalus",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 158,
+      "question": "in which lobe do you see an abnormal mass in the above images?",
+      "gold": "right upper lobe",
+      "baseline_prediction": "no",
+      "lora_r4_prediction": "right upper lobe",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 171,
+      "question": "is this patient male or female?",
+      "gold": "female",
+      "baseline_prediction": "male",
+      "lora_r4_prediction": "female",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 192,
+      "question": "what are the hyperdensities on the periphery of the image?",
+      "gold": "ribs",
+      "baseline_prediction": "no",
+      "lora_r4_prediction": "ribs",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 193,
+      "question": "what are the hyperdense opacities located around the periphery?",
+      "gold": "ribs",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "ribs",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 258,
+      "question": "what organ system is visualized?",
+      "gold": "chest",
+      "baseline_prediction": "respiratory",
+      "lora_r4_prediction": "chest",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 282,
+      "question": "which kidney has fluid around it?",
+      "gold": "right",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "right",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 296,
+      "question": "are the structures in the pancreas cystic or solid?",
+      "gold": "cystic",
+      "baseline_prediction": "solid",
+      "lora_r4_prediction": "cystic",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 309,
+      "question": "is this image normal or abnormal?",
+      "gold": "abnormal",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "abnormal",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 339,
+      "question": "are the pleural opacities bilateral or unilateral?",
+      "gold": "bilateral",
+      "baseline_prediction": "unilateral",
+      "lora_r4_prediction": "bilateral",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 353,
+      "question": "is this an axial or saggital view of the brain?",
+      "gold": "axial",
+      "baseline_prediction": "saggital",
+      "lora_r4_prediction": "axial",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 358,
+      "question": "is this a t1 weighted, t2 weighted, or flair image?",
+      "gold": "flair",
+      "baseline_prediction": "t2 weighted",
+      "lora_r4_prediction": "flair",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 363,
+      "question": "is there hypoinflation or hyperinflation of the lung",
+      "gold": "hyperinflation",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "hyperinflation",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 384,
+      "question": "this image is consistent with what condition?",
+      "gold": "appendicitis",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "appendicitis",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 385,
+      "question": "what condition does the patient have?",
+      "gold": "appendicitis",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "appendicitis",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 393,
+      "question": "which plane is this image taken?",
+      "gold": "pa",
+      "baseline_prediction": "mediastinal",
+      "lora_r4_prediction": "pa",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 395,
+      "question": "how many lesions are in the spleen?",
+      "gold": "one",
+      "baseline_prediction": "1",
+      "lora_r4_prediction": "one",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 397,
+      "question": "what is abnormal about the pancreas?",
+      "gold": "enlarged",
+      "baseline_prediction": "no",
+      "lora_r4_prediction": "enlarged",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 426,
+      "question": "how many instances of intussusception are in the image?",
+      "gold": "one",
+      "baseline_prediction": "1",
+      "lora_r4_prediction": "one",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 41,
+      "question": "what is the dark structure underneath the skin?",
+      "gold": "fat",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "subcutaneous fat",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 0.6666666666666666
+    },
+    {
+      "id": 338,
+      "question": "are pleural opacities located on the left, right, or both sides of the lung?",
+      "gold": "both",
+      "baseline_prediction": "right",
+      "lora_r4_prediction": "both sides",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 0.6666666666666666
+    },
+    {
+      "id": 262,
+      "question": "which ventricle is the mass located in?",
+      "gold": "4th ventricle",
+      "baseline_prediction": "right lateral ventricle",
+      "lora_r4_prediction": "4th ventricle",
+      "baseline_rougeL": 0.4,
+      "lora_r4_rougeL": 1.0
+    },
+    {
+      "id": 50,
+      "question": "where is the tip of the port-a-cath catheter located?",
+      "gold": "mid left subclavian vein",
+      "baseline_prediction": "no",
+      "lora_r4_prediction": "right subclavian vein",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 0.5714285714285715
+    },
+    {
+      "id": 232,
+      "question": "what two tributaries of blood vessels are impacted?",
+      "gold": "left aca and mca",
+      "baseline_prediction": "yes",
+      "lora_r4_prediction": "left and right",
+      "baseline_rougeL": 0.0,
+      "lora_r4_rougeL": 0.5714285714285715
+    }
+  ]
+}

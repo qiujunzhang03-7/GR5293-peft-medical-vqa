@@ -75,8 +75,8 @@ Specifically, it:
   visual encoder vs the LLM-side projector vs the LLM) is much less
   studied.
 - The paper reports task accuracy only; it does not deeply analyze
-  *which* layers benefit most from LoRA. Member 2's hyperparameter sweep
-  and Member 3's ablation should fill this gap for our medical VQA setting.
+  *which* layers benefit most from LoRA. Member 1's rank ablation (r ∈ {4, 8, 16})
+  partially fills this gap; Member 2's QLoRA experiments will extend it.
 - The "intrinsic low rank" claim assumes the target task is a small
   perturbation of the pretrained distribution. Medical VQA may not be —
   radiology is far from web text, so even if r=4 works for GLUE, we may

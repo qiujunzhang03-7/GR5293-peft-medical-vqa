@@ -63,7 +63,11 @@ def load_qwen_vl(
         model_id, torch_dtype=dtype, device_map=device_map,
     )
     model.eval()
-    processor = AutoProcessor.from_pretrained(model_id)
+    processor = AutoProcessor.from_pretrained(
+        model_id,
+        min_pixels=256 * 28 * 28,
+        max_pixels=768 * 28 * 28,
+    )
     return model, processor
 
 

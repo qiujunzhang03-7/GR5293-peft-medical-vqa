@@ -31,8 +31,8 @@
 
 | Split | Closed (yes/no) | Open-ended | Closed % |
 |-------|----------------:|-----------:|---------:|
-| Train | ~734 | ~1063 | ~41% |
-| Test | ~184 | ~267 | ~41% |
+| Train | ~1019 | ~778 | ~56.7% |
+| Test | 251 | 200 | 55.7% |
 
 (Exact numbers reproducible by running `notebooks/01_data_exploration.ipynb`.)
 

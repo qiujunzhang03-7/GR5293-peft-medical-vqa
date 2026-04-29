@@ -5,6 +5,8 @@ __pycache__/
 *.so
 .Python
 *.egg-info/
+build/
+dist/
 .ipynb_checkpoints/
 .pytest_cache/
 .coverage
@@ -25,28 +27,44 @@ env/
 .DS_Store
 Thumbs.db
 
-# ML artifacts (too large for git)
+# ML model artifacts (too large for git)
 *.bin
 *.safetensors
 *.pt
 *.pth
 *.ckpt
 
+# HuggingFace tokenizer/processor files (regenerated automatically when loading base model)
+checkpoints/**/tokenizer.json
+checkpoints/**/tokenizer_config.json
+checkpoints/**/tokenizer.model
+checkpoints/**/vocab.json
+checkpoints/**/merges.txt
+checkpoints/**/added_tokens.json
+checkpoints/**/special_tokens_map.json
+checkpoints/**/chat_template.json
+checkpoints/**/preprocessor_config.json
+checkpoints/**/adapter_config.json
+checkpoints/**/README.md
+
 # Cached datasets/models
 data/cache/
+data/raw/
+data/processed/
 .cache/
 *.arrow
 hf_cache/
 
-# Results: keep aggregated metrics, ignore large prediction dumps
+# Results: keep aggregated metrics + per-example scores, ignore raw prediction dumps
 results/**/predictions/
 results/**/checkpoints/
 !results/**/.gitkeep
 !results/**/metrics.json
 !results/**/per_example_scores.json
 
-# Wandb
+# Wandb / experiment tracking
 wandb/
+mlruns/
 
 # Colab-specific
 sample_data/
@@ -54,3 +72,7 @@ sample_data/
 # Local secrets
 .env
 *.key
+
+# Backup zips (don't commit our local backups)
+*.zip
+peft-medical-vqa-*.zip
