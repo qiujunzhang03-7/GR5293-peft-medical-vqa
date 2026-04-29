@@ -1,9 +1,5 @@
 # Member 1 → Members 2 & 3 Hand-off
 
-> **Author:** Member 1 — Qiujun Zhang (qz2579)
-> **For:** Member 2 (Wanrong Dang, wd2423) and Member 3 (Longkun Xu, lx2358)
-> **Date:** End of Week 4
->
 > This is the **single onboarding document** for Members 2 and 3. It tells you (a) what Member 1 finished, (b) what files you need from Member 1's work, (c) exactly how to run QLoRA / DoRA / analysis / demo, (d) what numbers to expect, and (e) the gotchas Member 1 hit so you don't re-discover them.
 
 ---
