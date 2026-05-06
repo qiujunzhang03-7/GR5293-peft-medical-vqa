@@ -10,7 +10,7 @@ This document is written so it can be lifted directly into the *Methodology*, *R
 
 ## 1. Scope
 
-This report covers the work in this report for weeks 1–4 after a mid-project rescope. this part of the project now include:
+This report covers the work for weeks 1–4 after a mid-project rescope. This part of the project includes:
 
 1. The data pipeline for VQA-RAD (§ 2.1)
 2. The zero-shot baseline using Qwen2-VL-2B-Instruct (§ 2.2)
@@ -72,7 +72,7 @@ Text normalization: lowercase, strip punctuation, collapse whitespace. Articles 
 
 ### 3.1 Project structure
 
-See [`README.md`](../README.md) for the full layout. the work in this report are in:
+See [`README.md`](../README.md) for the full layout. The files for this work are in:
 
 ```
 src/
