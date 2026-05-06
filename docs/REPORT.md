@@ -16,7 +16,7 @@ This report covers the work for weeks 1–4 after a mid-project rescope. This pa
 2. The zero-shot baseline using Qwen2-VL-2B-Instruct (§ 2.2)
 3. The evaluation metrics and **statistical-significance infrastructure** used by the entire team (§ 2.4 and § 4)
 4. **The complete LoRA fine-tuning pipeline: quick-run validation + 3-rank ablation (r ∈ {4, 8, 16})** (§ 5)
-5. Repository scaffolding, reproducibility tooling, hand-off docs, literature review
+5. Repository scaffolding and reproducibility tooling
 
 Items 4 and 5 are the new additions versus the original proposal's data + baseline scope. We completed the LoRA experiments in week 4 to parallelize the critical path.
 
