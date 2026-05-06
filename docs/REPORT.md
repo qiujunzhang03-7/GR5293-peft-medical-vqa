@@ -1,4 +1,4 @@
-# Member 1 Report: Weeks 1–4 Deliverables
+# Project Report: Baseline and LoRA Experiments
 
 > **Author:** Qiujun Zhang (qz2579)
 > **Coverage:** Weeks 1–4 — data pipeline, zero-shot baseline, **complete LoRA experiments (quick run + 3-rank ablation)**, statistical-test infrastructure
@@ -10,7 +10,7 @@ This document is written so it can be lifted directly into the *Methodology*, *R
 
 ## 1. Scope
 
-This report covers Member 1's deliverables for weeks 1–4 after a mid-project rescope. Member 1's responsibilities now include:
+This report covers the work in this report for weeks 1–4 after a mid-project rescope. this part of the project now include:
 
 1. The data pipeline for VQA-RAD (§ 2.1)
 2. The zero-shot baseline using Qwen2-VL-2B-Instruct (§ 2.2)
@@ -18,7 +18,7 @@ This report covers Member 1's deliverables for weeks 1–4 after a mid-project r
 4. **The complete LoRA fine-tuning pipeline: quick-run validation + 3-rank ablation (r ∈ {4, 8, 16})** (§ 5)
 5. Repository scaffolding, reproducibility tooling, hand-off docs, literature review
 
-Items 4 and 5 are the new additions versus the original proposal's "Member 1 = data + baseline only" scope. The completed LoRA ablation was originally Member 2's responsibility; completing it in week 4 parallelizes the critical path and frees Member 2 for QLoRA + DoRA.
+Items 4 and 5 are the new additions versus the original proposal's data + baseline scope. We completed the LoRA experiments in week 4 to parallelize the critical path.
 
 ---
 
@@ -51,7 +51,7 @@ We use a short, explicit system prompt (see `src/data/vqarad_dataset.py:SYSTEM_P
 > *reply with just 'yes' or 'no'. For other questions, give a short*
 > *factual answer (a few words).*
 
-We deliberately avoided chain-of-thought style prompts. CoT helps large models (≥7B) but, in informal pilot runs, **hurts Qwen2-VL-2B's accuracy on VQA-RAD by ~5 percentage points** because the 2B model is too small to reason multi-step and the longer outputs hurt Exact Match scoring. The exact prompt template is the **single source of truth** that Members 2 and 3 must use when training, ensuring byte-identical formatting between baseline and PEFT runs.
+We didn't use chain-of-thought style prompts. CoT helps large models (≥7B) but, in informal pilot runs, **hurts Qwen2-VL-2B's accuracy on VQA-RAD by ~5 percentage points** because the 2B model is too small to reason multi-step and the longer outputs hurt Exact Match scoring. The exact prompt template is used in both baseline and fine-tuning to keep formatting consistent.
 
 ### 2.4 Evaluation metrics
 
@@ -72,7 +72,7 @@ Text normalization: lowercase, strip punctuation, collapse whitespace. Articles 
 
 ### 3.1 Project structure
 
-See [`README.md`](../README.md) for the full layout. Member 1's deliverables are in:
+See [`README.md`](../README.md) for the full layout. the work in this report are in:
 
 ```
 src/
@@ -95,9 +95,7 @@ configs/
 
 docs/
   DATA_CARD.md               <- dataset documentation
-  MEMBER1_REPORT.md          <- this file
-  HANDOFF.md                 <- Member 2 / 3 onboarding manual
-  literature_review/         <- 6-paper reading notes
+  REPORT.md                  <- this file
 ```
 
 ### 3.2 Reproducibility
@@ -134,15 +132,10 @@ To compare two methods (e.g. baseline vs. LoRA), we resample joint indices into 
 
 For paired binary outcomes (correct / incorrect), McNemar's test asks whether the two methods disagree symmetrically. We use the *exact* binomial form (rather than the chi-squared approximation) to keep the test valid even when the disagreement count is small. Recommended by Dietterich (1998) for paired classifier comparison.
 
-### 4.4 Hand-off interface
-
-The baseline and every LoRA run save `per_example_scores.json` containing aligned per-example correctness, F1, BLEU, and ROUGE-L scores. Members 2 and 3 load the same file and pass their own per-example scores plus any baseline (or LoRA) into `paired_bootstrap_ci_diff` or `mcnemar_test`. The result is a directly comparable, pre-registered statistical comparison.
-
----
 
 ## 5. LoRA experiments
 
-This is the Week 3–4 deliverable that goes beyond the original proposal's Member-1 scope. The pipeline is built, validated on 200 examples (quick run), and run across three ranks on the full 1,797-example training split.
+This is Week 3–4 work that goes beyond the original proposal scope. The pipeline is built, validated on 200 examples (quick run), and run across three ranks on the full 1,797-example training split.
 
 ### 5.1 Design
 
@@ -150,7 +143,7 @@ The pipeline lives in `src/training/train_lora.py`. Key design decisions:
 
 | Decision | Why |
 |---|---|
-| Single `train_lora()` entry point + dataclass config | Members 2/3 can change behavior via YAML alone, with no source edits |
+| Single `train_lora()` entry point + dataclass config | Behavior can be changed via YAML alone, with no source edits |
 | `load_in_4bit` and `use_dora` are first-class config flags | QLoRA = flip one flag; DoRA = flip another; Q-DoRA = flip both |
 | Custom `QwenVLSFTCollator` masks the prompt portion of `labels` | Loss is computed only on answer tokens — without this, the model "learns" to predict the system message |
 | Fixed `min_pixels=256*28*28`, `max_pixels=768*28*28` in processor | Prevents image-token-count mismatch with Qwen2-VL's dynamic resolution (discovered the hard way); also ensures identical preprocessing in baseline + LoRA runs |
@@ -272,7 +265,7 @@ The baseline correctly identifies that some finding exists but does not produce 
 
 ## 8. Limitations & future work
 
-1. **Single seed.** All reported new results use seed=42. CUDA non-determinism means re-running will give results within ~1–2 pp but not exactly identical. Members 2/3 can fill this gap by running 3 seeds per QLoRA/DoRA headline configuration.
+1. **Single seed.** All reported new results use seed=42. CUDA non-determinism means re-running will give results within ~1–2 pp but not exactly identical. This can be addressed by running multiple seeds per configuration.
 
 2. **Rank U-shape is a single-seed finding.** The r=4 < r=8 < r=16 overfitting pattern is consistent across all five metrics, but it comes from one seed. Replicating it at 2 more seeds would confirm — we haven't done this due to Colab quota.
 
@@ -280,23 +273,19 @@ The baseline correctly identifies that some finding exists but does not produce 
 
 4. **Greedy decoding only.** Sampling (beam search, nucleus) is not tested. This is a deliberate choice (reproducibility > performance) but may underestimate open-ended performance.
 
-### Open questions for Members 2 & 3
+### Open questions
 
-- **QLoRA expected delta.** Prior literature (Dettmers et al., 2023) reports <1 pp degradation from 4-bit quantization. If Member 2's QLoRA r=4 shows >3 pp degradation vs. our LoRA r=4, that is a signal to investigate normalization or calibration issues.
+- **QLoRA expected delta.** Prior literature (Dettmers et al., 2023) reports <1 pp degradation from 4-bit quantization. If QLoRA r=4 shows >3 pp degradation vs. LoRA r=4, that is a signal to investigate normalization or calibration issues.
 - **DoRA training stability.** DoRA (Liu et al., 2024) claims faster convergence; worth checking if epoch 1 already exceeds LoRA epoch 3 at the same rank.
-- **Cross-method statistical tests.** Member 3 should compute paired bootstrap CIs not only vs. baseline but also for QLoRA vs. LoRA and DoRA vs. LoRA (and DoRA vs. QLoRA). The infrastructure is in place (see § 4.4).
+- **Cross-method statistical tests.** Future work should compute paired bootstrap CIs not only vs. baseline but also for QLoRA vs. LoRA and DoRA vs. LoRA (and DoRA vs. QLoRA). The infrastructure is in place.
 
 ---
 
-## 9. Reading list
+## 9. References
 
-The literature review notes are in `docs/literature_review/`. The six papers covered:
-
-- Hu et al. (2021) — LoRA
-- Dettmers et al. (2023) — QLoRA
-- Liu et al. (2024) — DoRA
-- Lau et al. (2018) — VQA-RAD
-- Li et al. (2023) — LLaVA-Med
-- Wang et al. (2024) — Qwen2-VL technical report
-
-Each note follows the same structure: citation, summary, mechanism, results, relevance to project, open questions / caveats.
+- Hu et al. (2021). LoRA: Low-Rank Adaptation of Large Language Models. https://arxiv.org/abs/2106.09685
+- Dettmers et al. (2023). QLoRA: Efficient Finetuning of Quantized LLMs. https://arxiv.org/abs/2305.14314
+- Liu et al. (2024). DoRA: Weight-Decomposed Low-Rank Adaptation. https://arxiv.org/abs/2402.09353
+- Lau et al. (2018). A dataset of clinically generated visual questions and answers about radiology images (VQA-RAD). Scientific Data 5, 180251.
+- Li et al. (2023). LLaVA-Med: Training a Large Language-and-Vision Assistant for Biomedicine in One Day. https://arxiv.org/abs/2306.00890
+- Wang et al. (2024). Qwen2-VL: Enhancing Vision-Language Model's Perception of the World at Any Resolution. https://arxiv.org/abs/2409.12191

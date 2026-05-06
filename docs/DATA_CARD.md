@@ -68,7 +68,7 @@ our `max_new_tokens = 64` choice.
 
 | Stage | Split | Purpose |
 |-------|-------|---------|
-| Zero-shot baseline (Member 1) | test | Evaluate Qwen2-VL-2B without any fine-tuning |
+| Zero-shot baseline | test | Evaluate Qwen2-VL-2B without any fine-tuning |
 | LoRA / QLoRA / DoRA training (Members 2, 3) | train | Fine-tune the base model |
 | Final reporting | test | Compare PEFT methods to the baseline using paired statistical tests |
 
