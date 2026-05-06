@@ -38,6 +38,22 @@ QLoRA and DoRA results are added by other team members and are documented in the
 
 See `docs/REPORT.md` for methodology and full LoRA results.
 
+## QLoRA, DoRA, and Demo
+
+The QLoRA and DoRA experiments, cross-method analysis notebook, Gradio demo notebook, and trained checkpoint weights are stored on Google Drive due to file size:
+
+**[Google Drive folder](https://drive.google.com/drive/folders/1Y_zvc7aqt1fogymPh5SxwpCKkREsGoTB)**
+
+The Drive folder contains:
+
+- `checkpoints/` — QLoRA and DoRA adapter weights
+- `target_module_ablation_checkpoints/` — additional ablation experiments
+- `results/` — cross-method comparison metrics and figures
+- `05_cross_method_analysis.ipynb` — comparison across LoRA / QLoRA / DoRA
+- `06_gradio_demo.ipynb` — interactive Gradio demo using the best adapter
+
+To run the demo, mount the Drive folder in Colab and follow the notebook.
+
 ## Authors
 
 - Qiujun Zhang (qz2579)
