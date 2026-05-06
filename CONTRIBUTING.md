@@ -20,11 +20,6 @@ We use feature branches that merge into main via PR:
 - analysis (cross-method comparison)
 - demo (Gradio demo)
 
-## Commit messages
-
-Format: [name] area: summary
-
-Areas: data, eval, train, docs, tests, ci, demo, qlora, dora, analysis.
 
 ## Pull requests
 
