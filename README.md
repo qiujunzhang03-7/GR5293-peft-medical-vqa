@@ -181,10 +181,10 @@ Drive contents checked from the shared folder: **190 files** are visible recursi
 │   ├── figures/
 │   ├── statistical_tests/
 │   └── tables/
-├── 04_qlora_dora_experiments.ipynb             <- Member 2: QLoRA / DoRA / Q-DoRA training
-├── 05_cross_method_analysis_drive_paths.ipynb  <- Member 3: tables, paired tests, figures
-├── 06_gradio_demo_drive_paths.ipynb            <- Member 3: interactive web demo
-└── 07_target_module_ablation_runpod.ipynb      <- target-module ablation RunPod notebook
+├── 04_qlora_dora_experiments.ipynb             <- Wanrong Dang: QLoRA / DoRA / Q-DoRA training
+├── 05_cross_method_analysis_drive_paths.ipynb  <- LingKun Xu: tables, paired tests, figures
+├── 06_gradio_demo_drive_paths.ipynb            <- Wanrong Dang: interactive web demo
+└── 07_target_module_ablation_runpod.ipynb      <- Wanrong Dang: target-module ablation RunPod notebook
 ```
 
 ### Running the demo
