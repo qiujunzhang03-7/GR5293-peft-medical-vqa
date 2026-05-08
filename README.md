@@ -139,13 +139,26 @@ If you just want to read the numbers without running anything:
 | Qualitative wins/losses | `results/error_analysis/baseline_vs_lora_rank4.json` |
 | Full discussion | `docs/REPORT.md` |
 
+## Performance and memory optimization
+
+To fit Qwen2-VL-2B fine-tuning into a single T4 GPU (16 GB), the training pipeline uses several memory-saving and throughput optimizations:
+
+- **fp16 mixed precision** for both forward and backward passes, halving activation memory versus fp32.
+- **Gradient checkpointing** during training, recomputing activations on the backward pass to trade compute for memory. This single switch is what brings peak GPU usage from 14+ GB down to ~6.7–6.9 GB on the LoRA runs.
+- **Pinned image preprocessing** (`min_pixels=256*28*28`, `max_pixels=768*28*28`) so Qwen2-VL's dynamic resolution does not silently inflate token counts and memory between training and evaluation.
+- **Per-device batch size 1 + gradient accumulation 4–8** for an effective batch size of 8, the largest batch that fits alongside the 2B base model and LoRA adapters on T4.
+- **4-bit NF4 quantization** of the base model in the QLoRA / Q-DoRA configurations, dropping peak GPU usage to ~4.3–4.5 GB at the cost of ~6 pp Closed EM.
+- **Greedy decoding** (`do_sample=False`) and `max_new_tokens=64` for fast, fully reproducible inference; one full evaluation of the 451-example test split runs in ~12 minutes.
+
+Training and inference profiling utilities live in `src/utils/profiling.py` and emit peak GPU memory, wall-clock time, and trainable-parameter count into every `training_metrics.json` automatically.
+
 ## Tests
 
 ```
 pytest tests/ -v
 ```
 
-85 unit tests covering metrics, dataset preprocessing, statistical tests, and config parsing. CPU-only, runs in under 30 seconds. Also runs automatically via GitHub Actions on every push.
+85 tests covering metrics, dataset preprocessing, statistical tests, and config parsing. The suite mixes pure unit tests (e.g. `exact_match`, `token_f1`, `bootstrap_ci`) with integration-style tests (`LoRATrainingConfig` end-to-end YAML parsing and CLI override paths). All tests are CPU-only and finish in under 30 seconds. They also run automatically via GitHub Actions on every push (`.github/workflows/tests.yml`, Python 3.10 and 3.11), and the suite is green on the current `main` branch.
 
 ## QLoRA, DoRA, Q-DoRA, and Demo
 
@@ -206,6 +219,83 @@ python -m src.training.train_lora \
 ```
 
 The same entry point handles all methods; flipping `load_in_4bit: true` and/or `use_dora: true` in the YAML is the only difference between LoRA / QLoRA / DoRA / Q-DoRA. See `docs/REPORT.md` § 5.1 for the design rationale and § 5.2 for the full run matrix.
+
+## Troubleshooting
+
+Common issues encountered while running this project, and how to fix them. Most of these came up during our own runs.
+
+### `pip install -r requirements.txt` hangs or fails on Colab
+
+Colab pre-installs older versions of `torch`, `transformers`, and `peft`. When the pinned versions in `requirements.txt` conflict with what Colab already has, the install can stall or raise resolver errors.
+
+**Fix:** add `-q` (quiet) and restart the runtime after install:
+
+```
+%pip install -q -r requirements.txt
+# Runtime → Restart session, then re-import
+```
+
+### `ModuleNotFoundError: No module named 'src'`
+
+Notebooks expect the project root to be on `sys.path`. If you opened a notebook directly without cloning, the imports fail.
+
+**Fix:** make sure you ran the clone cell at the top of the notebook:
+
+```
+!git clone https://github.com/qiujunzhang03-7/GR5293-peft-medical-vqa.git
+%cd GR5293-peft-medical-vqa
+```
+
+### `CUDA out of memory` during training
+
+The full LoRA pipeline peaks around 6.7–6.9 GB on a Colab T4 (16 GB). If you see OOM at the same configuration, something else is using GPU memory.
+
+**Fix:**
+
+1. Restart the Colab runtime (Runtime → Restart session) to clear residual memory
+2. Confirm the runtime is T4 (Runtime → Change runtime type → T4 GPU); some shared CPU runtimes silently fall back to no GPU
+3. If you customized `per_device_train_batch_size` above 1, lower it back to the default 1 with `gradient_accumulation_steps=4`
+4. For QLoRA / Q-DoRA configurations, peak usage is ~4.3–4.5 GB and should never OOM on T4
+
+### `CUDA out of memory` during inference
+
+Inference uses less memory than training, but still needs the full base model loaded. The most common cause is leftover memory from a previous training cell.
+
+**Fix:** restart the runtime before running the baseline.
+
+### `Image token count mismatch` error during training or inference
+
+Qwen2-VL uses dynamic image resolution, and the processor expands images into a variable number of image tokens. If `min_pixels` and `max_pixels` are not pinned, the same image can produce different token counts at training versus inference, which breaks the loss / generation pipeline.
+
+**Fix:** the project always uses `min_pixels=256*28*28, max_pixels=768*28*28`, set in `src/training/train_lora.py` and `src/evaluation/evaluate_baseline.py`. Don't override these — every checkpoint we ship was trained with these exact values.
+
+### HuggingFace dataset download fails or hangs
+
+VQA-RAD is loaded from `flaviagiammarino/vqa-rad`. If the download hangs, it's almost always a network or cache issue.
+
+**Fix:**
+
+1. Try again — transient network errors are common
+2. Set the cache directory explicitly: `export HF_HOME=/content/hf_cache` before running
+3. If you are behind a strict firewall, the dataset can be downloaded directly from https://huggingface.co/datasets/flaviagiammarino/vqa-rad and passed as a local path
+
+### `pytest` collects fewer than 85 tests
+
+The full suite is 85 tests on Python 3.10 / 3.11. If you see fewer, you are most likely missing `pyyaml` or `scipy` (the config-parsing and statistical tests skip without them).
+
+**Fix:** install the full test dependencies:
+
+```
+pip install -r requirements.txt
+pip install pytest scipy pyyaml
+pytest tests/ -v
+```
+
+### Numbers slightly different from the report
+
+Even with the same seed, CUDA non-determinism can shift Closed EM and Overall EM by ~1–2 percentage points across reruns. The headline pattern (DoRA ≈ LoRA > QLoRA, rank 4 > rank 16) is stable, but exact decimals are not.
+
+**Fix:** none needed — this is expected. For an exact match to the numbers in `docs/REPORT.md`, use the `training_metrics.json` and `per_example_scores.json` files committed in `checkpoints/lora_*/`.
 
 ## Authors
 
